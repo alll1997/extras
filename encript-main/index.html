@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="/style.css">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300&display=swap" rel="stylesheet">
+        <title>Encriptador</title>
+    </head>
+    <body>
+        <form>
+            <header>
+                <img src="imagenes/Logo.png" alt="logo de alura" class="logo">
+            </header>
+            <main>
+                <section class="ingreso">
+                    <div>
+                        <textarea type="text" name="text-area" class="text-area" placeholder="Ingrese el texto aquí" pattern="/^(?=*[a-z])/;" required></textarea>
+                    </div>
+                    <h3 class="leyenda">
+                        <img class="exclamation" src="imagenes/exclamation.png" alt="signo de advertencia">
+                        Solo letras minúsculas y sin acentos
+                    </h3>
+                    <div class="btn-text-area">
+                        <button type="submit" class="btn-encriptado" onclick="btnEncriptarText()">Encriptado</button>
+                        <button type="submit" class="btn-desencriptado " onclick="btnDesncriptarText()">Desencriptado</button>
+                    </div>  
+                </section>
+                <section class="mensaje">
+                    <div class="caja-texto">
+                        <textarea type="text" name="mensaje-texto" class= "mensaje-texto"  placeholder= "No se encontrado texto"></textarea>
+                    </div>
+                    <div class="copiar">
+                        <button type="button" class="btn-copy">Copiar</button>
+                    </div>
+                </section>                   
+            </main>
+        </form>
+        <script src="/scrypt.js"></script>
+    </body>
+</html>
