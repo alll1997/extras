@@ -1,0 +1,63 @@
+CREATE TABLE `itemsf` (
+  `NUMERO` varchar(5) NOT NULL,
+  `CODIGO` varchar(10) NOT NULL,
+  `CANTIDAD` int DEFAULT NULL,
+  `PRECIO` float DEFAULT NULL,
+  KEY `FK_TB_VENTA1` (`NUMERO`),
+  KEY `FK_TB_PRODUCTO1` (`CODIGO`),
+  CONSTRAINT `FK_TB_PRODUCTO1` FOREIGN KEY (`CODIGO`) REFERENCES `tb_producto` (`CODIGO`),
+  CONSTRAINT `FK_TB_VENTA1` FOREIGN KEY (`NUMERO`) REFERENCES `factura` (`NUMERO`)
+);
+
+SELECT * FROM tb_cliente;
+SELECT * FROM tb_vendedor;
+select * from tb_producto;
+
+INSERT INTO `ventas_jugos`.`factura`
+VALUES
+('01011',
+'2021-02-21',
+'3623344710',
+'235',
+.15);
+
+INSERT INTO `itemsf`
+VALUES
+('01011','1000889',100,500),
+('01011','1002767',100,500),
+('01011','1022450',100,500);
+
+SELECT * FROM factura;
+select * from itemsf;
+
+SELECT A.FECHA, SUM(B.CANTIDAD* B.PRECIO) AS PRECIO_TOTAL
+FROM factura A inner join itemsf B
+on A.numero=B.numero
+group by A.FECHA;
+
+
+DELIMITER //
+CREATE TRIGGER TG_FACTURACION_INSERT
+AFTER INSERT ON itemsf
+FOR EACH ROW BEGIN
+DELETE FROM facturacion;
+	INSERT INTO facturacion
+	SELECT A.FECHA, SUM(B.CANTIDAD* B.PRECIO) AS PRECIO_TOTAL
+	FROM factura A inner join itemsf B
+	on A.numero=B.numero
+	group by A.FECHA;
+END //
+
+INSERT INTO `ventas_jugos`.`factura`
+VALUES
+('01013', '2021-02-21', '3623344710', '235', .15);
+
+INSERT INTO `itemsf`
+VALUES
+('01013','1000889',100,500),
+('01013','1002767',100,500),
+('01013','1022450',100,500);
+
+SELECT * FROM factura;
+select * from itemsf;
+SELECT * FROM FACTURACION;
